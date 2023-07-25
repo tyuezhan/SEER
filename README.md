@@ -62,7 +62,7 @@ Then simply clone and compile our package (using ssh here):
 
 ```
   cd ${YOUR_WORKSPACE_PATH}/src
-  git clone git@github.com:tyuezhan/dl_exploration.git
+  git clone git@github.com:tyuezhan/SEER.git
   wstool init && wstool merge dl_exploration/planner.rosinstall && wstool update
   cd ../
   catkin build
@@ -79,7 +79,7 @@ to source this workspace in your ```.bashrc``` (.zshrc, etc. if you use other te
 Firstly run ```roscd exploration_manager/scripts``` to navigate to the tmux script. 
 Then, run
 ```
-tmux_sim.sh
+./tmux_sim.sh
 ```
 
 This should launch tmux with multiple windows that contains the entire simulation stack.
