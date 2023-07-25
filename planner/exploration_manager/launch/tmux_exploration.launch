@@ -1,0 +1,63 @@
+<launch>
+  <arg name="mav_name" default="ddk"/>
+  <arg name="mav_type" default="dragon_ddk"/>
+  <arg name="world_frame_id" default="world"/>
+<!-- 
+  <arg name="map_size_x" default="8.7"/>
+  <arg name="map_size_y" default="12.1"/>
+  <arg name="map_size_z" default="2.3"/>
+  <arg name="box_min_x" default="-3.9"/>
+  <arg name="box_min_y" default="-7.3"/>
+  <arg name="box_min_z" default=" 0.0"/>
+  <arg name="box_max_x" default="4.7"/>
+  <arg name="box_max_y" default="4.7"/>
+  <arg name="box_max_z" default=" 2.0"/>
+  <arg name="map_origin_x" default="-3.8"/>
+  <arg name="map_origin_y" default="-7.2"/>
+  <arg name="map_origin_z" default="-0.1"/> -->
+
+  <arg name="map_size_x" default="13"/>
+  <arg name="map_size_y" default="15"/>
+  <arg name="map_size_z" default="2.3"/>
+  <arg name="box_min_x" default="-1.6"/>
+  <arg name="box_min_y" default="-6.2"/>
+  <arg name="box_min_z" default=" 0.0"/>
+  <arg name="box_max_x" default="9.8"/>
+  <arg name="box_max_y" default="7.0"/>
+  <arg name="box_max_z" default=" 2.0"/>
+  <arg name="map_origin_x" default="-1.5"/>
+  <arg name="map_origin_y" default="-6.1"/>
+  <arg name="map_origin_z" default="-0.1"/>
+
+  <arg name="odom_topic" default="/ddk/ground_truth/odom"/>
+
+  <group ns="$(arg mav_name)">
+
+    <include file="$(find exploration_manager)/launch/exploration.launch">
+      <arg name="world_frame_id" value="$(arg world_frame_id)"/>
+      <arg name="mav_name"   value="$(arg mav_name)"/>
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
+      <arg name="map_size_x" value="$(arg map_size_x)"/>
+      <arg name="map_size_y" value="$(arg map_size_y)"/>
+      <arg name="map_size_z" value="$(arg map_size_z)"/>
+      <arg name="map_origin_x" value="$(arg map_origin_x)"/>
+      <arg name="map_origin_y" value="$(arg map_origin_y)"/>
+      <arg name="map_origin_z" value="$(arg map_origin_z)"/>
+      <arg name="box_min_x" value="$(arg box_min_x)"/>
+      <arg name="box_min_y" value="$(arg box_min_y)"/>
+      <arg name="box_min_z" value="$(arg box_min_z)"/>
+      <arg name="box_max_x" value="$(arg box_max_x)"/>
+      <arg name="box_max_y" value="$(arg box_max_y)"/>
+      <arg name="box_max_z" value="$(arg box_max_z)"/>
+
+      <arg name="camera_depth_topic" value="/ddk/rgbd/depth/image_raw" />
+      <arg name="camera_pose_type"   value="2" />
+
+      <arg name="cx" default="321.04638671875"/>
+      <arg name="cy" default="243.44969177246094"/>
+      <arg name="fx" default="387.229248046875"/>
+      <arg name="fy" default="387.229248046875"/> 
+    </include>
+  </group>
+
+</launch>

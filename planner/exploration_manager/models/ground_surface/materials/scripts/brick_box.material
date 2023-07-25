@@ -1,0 +1,18 @@
+material BrickBox/Ground
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture ground.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+      
+    }
+  }
+}
+

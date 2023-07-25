@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+    <model name="ground_surface">
+        <static>true</static>
+        <link name="chassis">
+            <pose>0 0 0.5 0 0 0</pose>
+            <collision name="collision">
+                <geometry>
+                    <box>
+                        <size>10 10 10</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <mesh>
+                        <uri>model://ground_surface/meshes/sea.dae</uri>
+                        <scale>10 10 10</scale>
+                    </mesh>
+                </geometry>
+                <material>
+                  <script>
+                    <uri>model://ground_surface/materials/scripts</uri>
+                    <uri>model://ground_surface/materials/textures</uri>
+                    <name>BrickBox/Sea</name>
+                  </script>
+                </material>
+            </visual>
+        </link>
+    </model>
+</sdf>

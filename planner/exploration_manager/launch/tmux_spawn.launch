@@ -1,0 +1,38 @@
+<launch>
+  <arg name="mav_name" default="ddk"/>
+  <arg name="mav_type" default="dragon_ddk"/>
+
+  <arg name="color/r" default="0.0"/>
+  <arg name="color/g" default="0.0"/>
+  <arg name="color/b" default="1.0"/>
+  <arg name="color/a" default="0.7"/>
+
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.2"/>
+  <arg name="Y" default="0"/>
+
+  <arg name="odom_topic" default="/ddk/ground_truth/odom"/>
+
+  <include file="$(find mrsl_quadrotor_launch)/launch/spawn.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <arg name="mav_type" value="$(arg mav_type)"/>
+    <arg name="x" default="$(arg x)"/>
+    <arg name="y" default="$(arg y)"/>
+    <arg name="z" default="0.2"/>
+    <arg name="Y" default="$(arg Y)"/>
+  </include>
+
+  <group ns="$(arg mav_name)">
+    <include file="$(find kr_mav_launch)/launch/mesh_vis.launch">
+      <arg name="mav_name" value="quadrotor"/>
+      <arg name="mav_type" value="hummingbird"/>
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
+      <arg name="color/r" value="$(arg color/r)"/>
+      <arg name="color/g" value="$(arg color/g)"/>
+      <arg name="color/b" value="$(arg color/b)"/>
+      <arg name="color/a" value="$(arg color/a)"/>
+    </include>
+  </group>
+
+</launch>

@@ -1,0 +1,17 @@
+<launch>
+  <arg name="rviz_config" default="$(find exploration_manager)/config/traj.rviz" />
+  <node name="rvizvisualisation" 
+    pkg="rviz"
+    type="rviz"
+    output="log"
+    args="-d $(arg rviz_config)"/>
+
+  <!-- <node pkg="tf" 
+    type="static_transform_publisher" 
+    name="tf_53" 
+    args="0 0 0 0 0 0 world navigation 100" /> -->
+
+</launch>
+
+
+

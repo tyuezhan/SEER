@@ -1,0 +1,117 @@
+<launch>
+  <!-- size of map, change the size in x, y, z according to your application -->
+  <arg name="map_size_x" />
+  <arg name="map_size_y" />
+  <arg name="map_size_z" />
+
+  <arg name="map_origin_x" />
+  <arg name="map_origin_y" />
+  <arg name="map_origin_z" />
+
+  <arg name="box_min_x" />
+  <arg name="box_min_y" />
+  <arg name="box_min_z" />
+  <arg name="box_max_x" />
+  <arg name="box_max_y" />
+  <arg name="box_max_z" />
+
+  <arg name="world_frame_id" default="world"/>
+  <arg name="mav_name" />
+
+  <!-- For office 22x25 -->
+  <!-- <arg name="init_x" value="0"/>
+  <arg name="init_y" value="2"/>
+  <arg name="init_z" value="1.0"/>  -->
+
+  <!-- <arg name="box_min_x" value="-11.0"/>
+  <arg name="box_min_y" value="-11.0"/>
+  <arg name="box_min_z" value=" 0.0"/>
+  <arg name="box_max_x" value="11.0"/>
+  <arg name="box_max_y" value="14.0"/>
+  <arg name="box_max_z" value=" 2.0"/> -->
+
+  <!-- <arg name="init_x" value="0"/>
+  <arg name="init_y" value="0"/>
+  <arg name="init_z" value="1.0"/>  -->
+  <!-- topic of your odometry such as VIO or LIO -->
+  <arg name="odom_topic"  default="/state_ukf/odom" />
+  <arg name="camera_depth_topic" default="/pcl_render_node/depth" />
+  <arg name="cx" default="321.04638671875"/>
+  <arg name="cy" default="243.44969177246094"/>
+  <arg name="fx" default="387.229248046875"/>
+  <arg name="fy" default="387.229248046875"/> 
+  
+  <arg name="max_vel" default="1.0" />
+  <arg name="max_acc" default="1.0" />
+
+  <!-- for gazebo sim is 2, rviz sim is 1 -->
+  <arg name="camera_pose_type" default="2" />
+
+  <!-- main algorithm params -->
+  <include file="$(find exploration_manager)/launch/algorithm.xml">
+    <arg name="frame_id"    value="$(arg world_frame_id)"/>
+    
+    <arg name="map_size_x_" value="$(arg map_size_x)"/>
+    <arg name="map_size_y_" value="$(arg map_size_y)"/>
+    <arg name="map_size_z_" value="$(arg map_size_z)"/>
+
+    <arg name="map_origin_x_" value="$(arg map_origin_x)"/>
+    <arg name="map_origin_y_" value="$(arg map_origin_y)"/>
+    <arg name="map_origin_z_" value="$(arg map_origin_z)"/>
+
+    <arg name="box_min_x" value="$(arg box_min_x)"/>
+    <arg name="box_min_y" value="$(arg box_min_y)"/>
+    <arg name="box_min_z" value="$(arg box_min_z)"/>
+    <arg name="box_max_x" value="$(arg box_max_x)"/>
+    <arg name="box_max_y" value="$(arg box_max_y)"/>
+    <arg name="box_max_z" value="$(arg box_max_z)"/>
+
+    <arg name="odometry_topic" value="$(arg odom_topic)"/>
+    <!-- sensor pose: transform of camera frame in the world frame -->
+    <arg name="sensor_pose_topic" value="/pcl_render_node/sensor_pose"/>
+    <!-- depth topic: depth image, 640x480 by default -->
+    <!-- cloud topic: point cloud measurement  -->
+    <!-- subscribe ONLY TO ONE of the two topics -->
+    <!-- <arg name="depth_topic" value="/pcl_render_node/depth"/> -->
+
+    <arg name="depth_topic" value="$(arg camera_depth_topic)"/>
+    <arg name="cloud_topic" value="/pcl_render_node/cloud"/>
+
+    <arg name="pose_type" value="$(arg camera_pose_type)" />
+
+    <arg name="waypoints_topic" value="/$(arg mav_name)/waypoint_generator/waypoints"/>
+    <arg name="tracker_topic" value="/$(arg mav_name)/trackers_manager/poly_tracker/PolyTracker/goal"/>
+    <arg name="srv_name"  value="/$(arg mav_name)/mav_services/poly_tracker"/>
+
+    <!-- intrinsic params of the depth camera -->
+    <arg name="cx" value="$(arg cx)"/>
+    <arg name="cy" value="$(arg cy)"/>
+    <arg name="fx" value="$(arg fx)"/>
+    <arg name="fy" value="$(arg fy)"/>
+
+    <!-- maximum velocity and acceleration the drone will reach -->
+    <arg name="max_vel" value="$(arg max_vel)" />
+    <arg name="max_acc" value="$(arg max_acc)" />
+  </include>
+
+
+  <node pkg="waypoint_generator" name="waypoint_generator" type="waypoint_generator" output="screen" launch-prefix="nice -n 10">
+    <remap from="~odom" to="$(arg odom_topic)"/>        
+    <remap from="~goal" to="/move_base_simple/goal"/>
+    <remap from="~traj_start_trigger" to="/traj_start_trigger" />
+    <param name="waypoint_type" value="point"/>    
+  </node>
+
+
+  <node pkg="odom_visualization" name="odom_visualization" type="odom_visualization" output="screen" launch-prefix="nice -n 10">
+        <remap from="~odom" to="$(arg odom_topic)"/>
+        <param name="color/a" value="1.0"/>    
+        <param name="color/r" value="0.0"/>        
+        <param name="color/g" value="0.0"/>        
+        <param name="color/b" value="1.0"/>       
+        <param name="covariance_scale" value="100.0"/>       
+        <param name="robot_scale" value="1.0"/>
+
+  </node>
+
+</launch>

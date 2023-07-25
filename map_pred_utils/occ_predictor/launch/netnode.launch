@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="occ_predictor" type="net_node.py" name="net_node" output="screen">
+    <param name="~service_name" value="/frontier/occ_map/pred"/>
+		<param name="~model_path" value="$(find occ_predictor)/models/model-epoch-19_2.pth" />
+		<param name="~occ_thresord" value="1.0"/>
+
+	</node>
+
+</launch>

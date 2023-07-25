@@ -1,0 +1,17 @@
+<launch>
+  <arg name="mav_name" default="ddk"/>
+  <arg name="mav_type" default="dragon_ddk"/>
+  <arg name="mass" default="0.25"/>
+  <arg name="nodelet_manager_name" default="nodelet_manager_control"/>
+  <arg name="odom_topic" default="/ddk/ground_truth/odom"/>
+
+  <!-- Control stuff -->
+  <include file="$(find mrsl_quadrotor_launch)/launch/controller.launch">
+    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)"/>
+    <arg name="mass" value="$(arg mass)"/>
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <arg name="mav_type" value="$(arg mav_type)"/>
+    <arg name="odom_topic" value="$(arg odom_topic)"/>
+  </include>
+
+</launch>

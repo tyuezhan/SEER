@@ -1,0 +1,96 @@
+<launch>
+  <arg name="mav_name" default="ddk"/>
+  <arg name="mav_type" default="dragon_ddk"/>
+  <arg name="world_frame_id" default="world"/>
+  <arg name="sim" default="true"/>
+  <arg name="vicon" default="false"/>
+  <arg name="vicon_fps" default="100"/>
+  <arg name="slow_baud_rate" default="true"/>
+  <arg name="mass" default="0.25"/>
+  <arg name="nodelet_manager_name" default="nodelet_manager_control"/>
+  <arg name="random_map" default="true"/>
+
+  <arg name="initial_position/x" default="0.0"/>
+  <arg name="initial_position/y" default="0.0"/>
+  <arg name="initial_position/z" default="0.0"/>
+  <arg name="color/r" default="0.0"/>
+  <arg name="color/g" default="0.0"/>
+  <arg name="color/b" default="1.0"/>
+  <arg name="color/a" default="0.7"/>
+  <!-- size of map, change the size in x, y, z according to your application -->
+  <arg name="map_size_x" value="40.0"/>
+  <arg name="map_size_y" value="40.0"/>
+  <arg name="map_size_z" value=" 5.0"/>
+
+
+  <arg name="odom_topic" default="/ddk/ground_truth/odom"/>
+
+  <include file="$(find exploration_manager)/launch/gazebo.launch">
+    <arg name="world" value="exp"/>
+  </include>
+
+  <include file="$(find mrsl_quadrotor_launch)/launch/spawn.launch">
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <arg name="mav_type" value="$(arg mav_type)"/>
+    <arg name="Y" value="0.0"/>    
+  </include>
+
+  <!-- Control stuff -->
+  <include file="$(find mrsl_quadrotor_launch)/launch/controller.launch">
+    <arg name="nodelet_manager_name" value="$(arg nodelet_manager_name)"/>
+    <arg name="mass" value="$(arg mass)"/>
+    <arg name="mav_name" value="$(arg mav_name)"/>
+    <arg name="mav_type" value="$(arg mav_type)"/>
+    <arg name="odom_topic" value="$(arg odom_topic)"/>
+  </include>
+
+  <group ns="$(arg mav_name)">
+
+    <include file="$(find exploration_manager)/launch/exploration.launch">
+      <arg name="world_frame_id" value="$(arg world_frame_id)"/>
+      <arg name="mav_name"   value="$(arg mav_name)"/>
+      <arg name="map_size_x" value="$(arg map_size_x)"/>
+      <arg name="map_size_y" value="$(arg map_size_y)"/>
+      <arg name="map_size_z" value="$(arg map_size_z)"/>
+
+
+      <arg name="map_origin_x" value="$(arg map_origin_z)"/>
+      <arg name="map_origin_y" value="$(arg map_origin_z)"/>
+      <arg name="map_origin_z" value="$(arg map_origin_z)"/>
+
+
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
+
+      <arg name="camera_depth_topic" value="/ddk/rgbd/depth/image_raw" />
+      <arg name="camera_pose_type"   value="2" />
+
+      <!-- <arg name="cx" value="315.50122168521807"/>
+      <arg name="cy" value="240.5"/>
+      <arg name="fx" value="376.5"/>
+      <arg name="fy" value="376.5"/> -->
+      <arg name="cx" default="321.04638671875"/>
+      <arg name="cy" default="243.44969177246094"/>
+      <arg name="fx" default="387.229248046875"/>
+      <arg name="fy" default="387.229248046875"/> 
+    </include>
+
+    <include file="$(find kr_mav_launch)/launch/mesh_vis.launch">
+      <arg name="mav_name" value="quadrotor"/>
+      <arg name="mav_type" value="hummingbird"/>
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
+      <arg name="color/r" value="$(arg color/r)"/>
+      <arg name="color/g" value="$(arg color/g)"/>
+      <arg name="color/b" value="$(arg color/b)"/>
+      <arg name="color/a" value="$(arg color/a)"/>
+    </include>
+
+  </group>
+
+
+
+  <include file="$(find exploration_manager)/launch/rviz.launch">
+    <arg name="rviz_config" value="$(find exploration_manager)/config/gazebo.rviz"/>
+  </include>
+
+
+</launch>

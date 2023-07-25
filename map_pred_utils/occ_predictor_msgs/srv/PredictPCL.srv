@@ -1,0 +1,6 @@
+int16 dim_x
+int16 dim_y
+int16 dim_z
+float32[] input
+---
+float32[] pred
