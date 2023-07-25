@@ -8,16 +8,15 @@ Please cite our paper if you use this project in your research:
 - [__SEER: Safe Efficient Exploration for Aerial Robots using Learning to Predict Information Gain__](https://arxiv.org/abs/2209.11034), Yuezhan Tao, Yuwei Wu, Beiming Li, Fernando Cladera, Alex Zhou, Dinesh Thakur, Vijay Kumar.
 
 ```
-@misc{https://doi.org/10.48550/arxiv.2209.11034,
-  doi = {10.48550/ARXIV.2209.11034},
-  url = {https://arxiv.org/abs/2209.11034},
-  author = {Tao, Yuezhan and Wu, Yuwei and Li, Beiming and Cladera, Fernando and Zhou, Alex and Thakur, Dinesh and Kumar, Vijay},
-  keywords = {Robotics (cs.RO), FOS: Computer and information sciences, FOS: Computer and information sciences},
-  title = {SEER: Safe Efficient Exploration for Aerial Robots using Learning to Predict Information Gain},
-  publisher = {arXiv},
-  year = {2022},
-  copyright = {Creative Commons Attribution 4.0 International}
-}
+@INPROCEEDINGS{10160295,
+  author={Tao, Yuezhan and Wu, Yuwei and Li, Beiming and Cladera, Fernando and Zhou, Alex and Thakur, Dinesh and Kumar, Vijay},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={SEER: Safe Efficient Exploration for Aerial Robots using Learning to Predict Information Gain}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1235-1241},
+  doi={10.1109/ICRA48891.2023.10160295}}
 ```
 
 Please kindly star :star: this project if it helps you. We take great efforts to develope and maintain it :grin::grin:.
@@ -40,6 +39,7 @@ This project has been tested on Ubuntu 20.04(ROS Noetic). Run the following comm
 
 ```
   sudo apt-get install libarmadillo-dev
+  sudo apt-get install tmux
 ```
 
 Install pytorch for running the occupancy predictor in simulation (verified with CUDA 11.7 and torch 1.12.0):
@@ -69,21 +69,24 @@ Then simply clone and compile our package (using ssh here):
 
 If you got any compilation issues, see [Known issues](#known-issues) section.
 
-After compilation you can start a sample exploration demo. Firstly run ```Rviz``` for visualization: 
+After compilation you can start a sample exploration demo. First, please add
+```
+source ${YOUR_WORKSPACE_PATH}/devel/setup.bash
+```
+to source this workspace in your ```.bashrc``` (.zshrc, etc. if you use other terminals). Since our tmux script will create new terminal windows, this is to make sure they can find the correct packages.
 
+Firstly run ```roscd exploration_manager/scripts``` to navigate to the tmux script. 
+Then, run
 ```
-  source devel/setup.bash && roslaunch exploration_manager simple_sim.launch
-```
-then run the occupancy predictor (run in a new terminals): 
-```
-  source devel/setup.bash && roslaunch occ_predictor netnode.launch
-```
-Next run the rqt mav manager:
-```
-  source devel/setup.bash && rosrun rqt_mav_manager rqt_mav_manager
+tmux_sim.sh
 ```
 
-By default you can see an office-like environment. Firstly, click Motors On and Take Off from the mav manager GUI. Then, Trigger the quadrotor to start exploration by the ```2D Nav Goal``` tool in ```Rviz```.
+This should launch tmux with multiple windows that contains the entire simulation stack.
+
+By default you can see an office-like environment in Gazebo. The Rviz should show an empty environment with a small quadrotor. 
+
+Firstly, click ```Motors On``` and ```Take Off``` from the mav manager GUI. 
+Then, after you see some initial map, trigger the quadrotor to start exploration by the ```2D Nav Goal``` tool in ```Rviz```.
 
 ## Exploring Different Environments
 
