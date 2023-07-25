@@ -28,6 +28,7 @@ Please kindly star :star: this project if it helps you. We take great efforts to
   - [Quick Start](#quick-start)
   - [Exploring Different Environments](#exploring-different-environments)
   - [To Improve the Semantic Detection](#to-improve-the-semantic-detection)
+    - [Disable Semantic Detection](#disable-semantic-detection)
   - [What is NOT Included in this Release](#what-is-not-included-in-this-release)
   - [Known issues](#known-issues)
     - [Compilation issue](#compilation-issue)
@@ -111,6 +112,8 @@ You may also need to change the bounding box of explored space in tmux_explorati
 
 ## To Improve the Semantic Detection
 You may noticed that in this work we proposed a hand-crafted door detector. To improve the performance of detection, please feel free to replace the detection module with a NN model.
+### Disable Semantic Detection
+If you'd like to disable the semntic detection as well as the behavior state machine, flip the flag of semantic detection in ```algorithm.xml``` in [planner/exploration_manager/launch](planner/exploration_manager/launch).
 
 ## What is NOT Included in this Release
 1. Training data from MatterPort3D
