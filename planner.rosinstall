@@ -1,4 +1,4 @@
 - git: {local-name: catkin_simple, uri: 'git@github.com:catkin/catkin_simple.git'}
 - git: {local-name: kr_mav_control, uri: 'git@github.com:tyuezhan/kr_mav_control.git', version: 'seer_release'}
 - git: {local-name: mrsl_quadrotor, uri: 'git@github.com:tyuezhan/mrsl_quadrotor.git', version: 'falconet'}
-- git: {local-name: qflight_descriptions, uri: 'https://github.com/tyuezhan/qflight_descriptions', version: 'devel_kr'}
+- git: {local-name: qflight_descriptions, uri: 'git@github.com:tyuezhan/qflight_descriptions.git', version: 'devel_kr'}
