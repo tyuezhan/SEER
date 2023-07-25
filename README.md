@@ -63,7 +63,7 @@ Then simply clone and compile our package (using ssh here):
 ```
   cd ${YOUR_WORKSPACE_PATH}/src
   git clone git@github.com:tyuezhan/SEER.git
-  wstool init && wstool merge dl_exploration/planner.rosinstall && wstool update
+  wstool init && wstool merge SEER/planner.rosinstall && wstool update
   cd ../
   catkin build
 ```
@@ -113,7 +113,7 @@ You may also need to change the bounding box of explored space in tmux_explorati
 ## To Improve the Semantic Detection
 You may noticed that in this work we proposed a hand-crafted door detector. To improve the performance of detection, please feel free to replace the detection module with a NN model.
 ### Disable Semantic Detection
-If you'd like to disable the semntic detection as well as the behavior state machine, flip the flag of semantic detection in ```algorithm.xml``` in [planner/exploration_manager/launch](planner/exploration_manager/launch).
+If you'd like to disable the semntic detection as well as the behavior state machine, flip the flag of semantic detection at line 133 in ```algorithm.xml``` in [planner/exploration_manager/launch](planner/exploration_manager/launch).
 
 ## What is NOT Included in this Release
 1. Training data from MatterPort3D
