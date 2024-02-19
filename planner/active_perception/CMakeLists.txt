@@ -47,6 +47,5 @@ add_library( active_perception
 target_link_libraries( active_perception
     ${catkin_LIBRARIES} 
     ${PCL_LIBRARIES}
-    cnpy
     ${OpenCV_LIBS}
     )  

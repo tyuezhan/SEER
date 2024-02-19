@@ -12,7 +12,6 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "occ_predictor_msgs/PredictPCL.h"
-#include "cnpy.h"
 
 using Eigen::Vector3d;
 using std::shared_ptr;

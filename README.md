@@ -110,6 +110,8 @@ You may also need to change the bounding box of explored space in tmux_explorati
   <arg name="map_origin_z" default="-0.1"/>
 ```
 
+Note: Here, the map_origin is the bottom left corner of the map bounding box, the map expand from the origin to (map_origin+map_size). Box_min and box_max are used to shrink the map inward, a valid value should limit the box within the map. 
+
 ## To Improve the Semantic Detection
 You may noticed that in this work we proposed a hand-crafted door detector. To improve the performance of detection, please feel free to replace the detection module with a NN model.
 ### Disable Semantic Detection
